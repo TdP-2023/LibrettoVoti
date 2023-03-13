@@ -18,6 +18,10 @@ public class Libretto {
 	 * @return true
 	 */
 	public boolean add(Voto v) {
+		if (this.esisteVotoConflitto(v) ||
+				this.esisteVotoDuplicato(v))  {
+			throw new IllegalArgumentException("Voto errato: "+v);
+		}
 		return this.voti.add(v);
 	}
 
@@ -34,31 +38,68 @@ public class Libretto {
 			}
 		}
 	}
-	
+
 	public Voto cercaVotoPerNome(String corso) {
-		for(Voto v: this.voti) {
+		for (Voto v : this.voti) {
 //			if(v.getCorso().compareTo(corso)==0) 
-			if(v.getCorso().equals(corso)) {
-				return v ;
+			if (v.getCorso().equals(corso)) {
+				return v;
 			}
 		}
-		
-		return null ;
-		
+
+		return null;
+
 //		throw new RuntimeException("Voto non trovato") ;
 	}
-	
-	public boolean esisteVoto(Voto nuovo) {
-		for(Voto v: this.voti) {
-//			if(v.equalsCorsoPunti(nuovo)) 
-				
-			if(v.getCorso().equals(nuovo.getCorso()) && 
-					v.getPunti() == nuovo.getPunti() )
-			{
-				return true ;
-			}
+
+	public boolean esisteVotoDuplicato(Voto nuovo) {
+		for (Voto v : this.voti) {
+			if(v.isDuplicato(nuovo))
+				return true;
 		}
 		return false;
 	}
 
+	public boolean esisteVotoConflitto(Voto nuovo) {
+		for (Voto v : this.voti) {
+			if(v.isConflitto(nuovo)) {
+				return true;
+			}
+		}
+		return false ;
+	}
+
+	/**
+	 * Metodo 'factory' per creare un nuovo libretto
+	 * con i voti migliorati.
+	 * 
+	 * @return
+	 */
+	public Libretto librettoMigliorato() {
+		Libretto migliore = new Libretto() ;
+		migliore.voti = new ArrayList<>() ;
+		for(Voto v: this.voti) {
+			migliore.voti.add(v.clone()) ;
+//			migliore.voti.add(new Voto(v)) ;
+		}
+		for(Voto v : migliore.voti ) {
+			v.setPunti(v.getPunti()+2);
+		}
+		return migliore ;
+	}
+	
+	public void cancellaVotiInferiori(int punti) {
+		for(Voto v: this.voti) {
+			if(v.getPunti()<punti) {
+				this.voti.remove(v) ;
+			}
+		}
+		
+//		for(int i=0; i<this.voti.size(); i++) {
+//			if(this.voti.get(i).getPunti()<punti) {
+//				this.voti.remove(i);
+//			}
+//		}
+	}
+	
 }
