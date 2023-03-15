@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.libretto.Controller">
    <top>
       <Label text="Libretto Voti" BorderPane.alignment="CENTER">
          <font>
@@ -13,4 +19,19 @@
          </font>
       </Label>
    </top>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox>
+               <children>
+                  <TextField fx:id="txtCorso" promptText="Nome corso" />
+                  <ComboBox fx:id="cmbPunti" prefWidth="150.0" />
+                  <DatePicker fx:id="selData" />
+                  <Button mnemonicParsing="false" onAction="#handleInserisci" text="Inserisci" />
+               </children>
+            </HBox>
+            <TextArea fx:id="txtResult" editable="false" />
+         </children>
+      </VBox>
+   </center>
 </BorderPane>

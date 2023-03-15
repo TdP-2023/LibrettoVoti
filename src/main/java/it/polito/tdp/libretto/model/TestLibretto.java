@@ -43,9 +43,15 @@ public class TestLibretto {
 		System.out.println("LIBRETTO ORIGINARIO DI NUOVO") ;
 		lib.stampa(); 
 
-		lib.cancellaVotiInferiori(24);
-		System.out.println("LIBRETTO ORIGINARIO >24") ;
-		lib.stampa(); 
+//		lib.cancellaVotiInferiori(24);
+//		System.out.println("LIBRETTO ORIGINARIO >24") ;
+//		lib.stampa();
+		
+		System.out.println("PER ORDINE ALFABETICO") ;
+
+		lib.librettoOrdinatoAlfabeticamente().stampa() ;
+		System.out.println("PER ORDINE DI VOTO") ;
+		lib.librettOrdinatoPerVoto().stampa() ;
 
 	}
 

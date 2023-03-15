@@ -63,6 +63,5 @@ public class Voto {
 	public String toString() {
 		return corso + "(" + punti + " pt) il " + dataEsame;
 	}
-
 	
 }

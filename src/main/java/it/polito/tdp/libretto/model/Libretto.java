@@ -1,6 +1,8 @@
 package it.polito.tdp.libretto.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Libretto {
@@ -30,6 +32,15 @@ public class Libretto {
 			System.out.println(v);
 		}
 	}
+	
+	public String toString() {
+		String txt = "" ;
+		for (Voto v : this.voti) {
+			txt = txt + v.toString()+"\n";
+		}
+		return txt;
+	}
+
 
 	public void stampaPuntiUguali(int valore) {
 		for (Voto v : this.voti) {
@@ -89,17 +100,49 @@ public class Libretto {
 	}
 	
 	public void cancellaVotiInferiori(int punti) {
+		List<Voto> daCancellare = new ArrayList<Voto>();
 		for(Voto v: this.voti) {
 			if(v.getPunti()<punti) {
-				this.voti.remove(v) ;
+				daCancellare.add(v) ;
 			}
 		}
+		
+		for(Voto v1: daCancellare) {
+			this.voti.remove(v1) ;
+		}
+		
+//		Meglio: this.voti.removeAll(daCancellare) ;
 		
 //		for(int i=0; i<this.voti.size(); i++) {
 //			if(this.voti.get(i).getPunti()<punti) {
 //				this.voti.remove(i);
 //			}
 //		}
+	}
+	
+	public Libretto librettoOrdinatoAlfabeticamente() {
+		Libretto ordinato = new Libretto() ;
+		ordinato.voti = new ArrayList<>(this.voti) ;
+		
+		ordinato.voti.sort(new ComparatorByName()) ;
+//		Collections.sort(ordinato.voti, new ComparatorByName());
+		
+		return ordinato ;
+	}
+	
+	public Libretto librettOrdinatoPerVoto() {
+		Libretto ordinato = new Libretto() ;
+		ordinato.voti = new ArrayList<>(this.voti) ;
+
+		ordinato.voti.sort(new Comparator<Voto>() {
+			@Override
+			public int compare(Voto o1, Voto o2) {
+				return o2.getPunti()-o1.getPunti();
+			}
+			});
+		
+		return ordinato ;
+		
 	}
 	
 }
