@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import it.polito.tdp.libretto.model.Libretto;
+
 /**
  * JavaFX App
  */
@@ -19,6 +21,16 @@ public class App extends Application {
     	FXMLLoader loader = new FXMLLoader(App.class.getResource("main.fxml")) ;
     	Parent root = loader.load();
     	Scene scene = new Scene(root) ;
+    	
+    	Libretto model=new Libretto();
+    	Controller controller=loader.getController();
+    	
+    	/**
+    	 * grazie a questa istruzione riuscaciamo a capire dal loader
+    	 * (che crea controller e Scene) quale controller è utilizzato
+    	 */
+    	
+    	controller.setModel(model);
 
     	stage.setScene(scene);
         stage.show();
