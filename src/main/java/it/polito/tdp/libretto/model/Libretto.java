@@ -95,6 +95,12 @@ public class Libretto {
 		for( Voto v: migliore.voti) {
 			v.setPunti(v.getPunti()+2);
 		}
+		/**
+		 * NOTA: se facessi :
+		 * migliore.voti=new ArrayList<>(this.voti); creerei una lista con esattamente gli stessi voti dentro.
+		 * Nel momento in cui vado a modificare il voto all'interno di questa lista, sto modificando anche il voto all'interno dell'altra
+		 * ho bisogno di creare dei voti clonati
+		 */
 		
 		
 		return migliore;
@@ -115,7 +121,9 @@ public class Libretto {
 		}
 		
 		
-		/*ERRATO!!! NON SI MODIFICA MAI LA LISTA CHE STO MODIFICANDO
+		/*ERRATO!!! NON SI MODIFICA MAI LA LISTA CHE STO MODIFICANDO. NON POSSO ITERARE SU UNA LISTA CHE STO MODIFICANDO
+		 * QUINDI CREO UNA LISTA CHE MI CONTA TUTTI I VOTI CHE DEVO CANCELLARE E POI DALLA LISTA ORIGINALE RIMUOVO QUEI VOTI
+		 * ITERNADO QUESTA VOLTA SULL'ALTRA LISTA!!!!
 		for (int i=0;i<this.voti.size();i++) {
 			this.voti.remove(i);
 		}*/
@@ -123,9 +131,10 @@ public class Libretto {
 	
 	public Libretto librettoOrdinatoAlfabeticamente() {
 		Libretto ordinato=new Libretto();
-		ordinato.voti=new ArrayList<>(this.voti);
-		ordinato.voti.sort(new ComparatorByName());
-		// Collections.sort(ordinato.voti,new ComparatorByName());
+		ordinato.voti=new ArrayList<>(this.voti);// CREO UNA COPIA DELLA LISTA ORDINATA! IN QUESTO MODO MANTENGO ANCHE LA LISTA NONORDINATA
+		ordinato.voti.sort(new ComparatorByName());// QUESTO METODO RICHIEDE UN COMPARATORE!!
+		// Collections.sort(ordinato.voti,new ComparatorByName()); // IN QUESTO METODO INVECE SE NON INSERISCO IL COMPARATORE,
+		//															   LA LISTA VIENE ORDINATA SECONDO IL COMPARE TO
 		
 		return ordinato;
 		
@@ -135,8 +144,8 @@ public class Libretto {
 	public Libretto librettoOrdinatoPerVoto() {
 		Libretto ordinato=new Libretto();
 		ordinato.voti=new ArrayList<>(this.voti);
-		ordinato.voti.sort(new Comparator<Voto>(){
-
+		ordinato.voti.sort(new Comparator<Voto>(){// CLASSE INLINE, NON STO CREANDO UNA NUOVA CLASSE COMPARATORE, MA LA STO SCRIVENDO DIRETTAMENTE QUA
+                                                  // CREO IN QUESTO MODO UNA CLASSE ANONIMA
 			@Override
 			public int compare(Voto o1, Voto o2) {
 				

@@ -13,7 +13,7 @@ public class Voto {
 		this.dataEsame = dataEsame;
 	}
 	
-	//COPY CONSTRUCTOR
+	//COPY CONSTRUCTOR, PUO ESSERE UTILIZZATO IN ALTERNATIVA AL CLONE
 	public Voto(Voto voto) {
 		this.corso = voto.corso;
 		this.punti = voto.punti;

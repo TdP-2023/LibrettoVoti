@@ -20,7 +20,7 @@ import javafx.scene.control.TextField;
 
 public class Controller { // controller non deve fare mai la new !! la new la fa il main!!!
 	
-	private Libretto model;
+	private Libretto model;// NON DEVO MAI INIZIALIZZARLO QUA IL MODELLO!! DEVO CREARE FUNZIONE SETMODEL!!!
 	
 	 @FXML // ResourceBundle that was given to the FXMLLoader
 	    private ResourceBundle resources;
